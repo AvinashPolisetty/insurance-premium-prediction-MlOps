@@ -7,6 +7,7 @@ from src.exception import CustomException
 from sklearn.model_selection import train_test_split
 from src.components.data_transformation import DataTransformationConfig,DataTransformation
 from src.components.model_trainer import ModelTrainerConfig,ModelTrainer
+from src.components.model_evaluation import ModelEvaluationConfig
 @dataclass
 class DataIngestionConfig:
     train_data_path:str = os.path.join("artifacts","train.csv")
@@ -54,4 +55,12 @@ if __name__=="__main__":
     train_arr,test_arr,_=data_transformation.initiate_data_transformation(train_data,test_data)
 
     model_trainer=ModelTrainer()
-    print(model_trainer.initiate_model_train(train_arr,test_arr))
+    y_test,predicted=model_trainer.initiate_model_train(train_arr,test_arr)
+    print('r2_score',"this is score")
+
+    model_evaluation=ModelEvaluationConfig()
+    rmse,mae,r2_score=model_evaluation.eval_metrics(predicted,y_test)
+    print(rmse,mae,r2_score,"in modelevaluation")
+
+    model_evaluation.log_into_mlflow()
+   

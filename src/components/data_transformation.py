@@ -27,6 +27,13 @@ class DataTransformation:
             numerical_columns = ['age', 'bmi', 'children']
             categorical_columns = ['sex', 'smoker', 'region']
 
+            sex_categories = ['male', 'female']
+            smoker_categories = ['yes', 'no'] 
+            region_categories = ['southwest', 'southeast', 'northwest', 'northeast']
+
+
+
+
             num_pipeline=Pipeline(
                 steps=[
                     ("scalar",StandardScaler())
@@ -36,7 +43,8 @@ class DataTransformation:
             cat_pipeline=Pipeline(
                 steps=[
                     
-                    ('onehotencoding',OneHotEncoder()),
+                    ('onehotencoding',OneHotEncoder(categories=[sex_categories,
+                                                                smoker_categories,region_categories])),
                     
                 ]
             )

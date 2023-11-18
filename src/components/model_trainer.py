@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from src.utils import save_object,evaluate_model
 from sklearn.linear_model import LinearRegression,Ridge,Lasso,ElasticNet
 from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.svm import SVR
 from sklearn.ensemble import AdaBoostRegressor
 from src.exception import CustomException
@@ -34,11 +35,12 @@ class ModelTrainer:
             models = {
                 'LinearRegression': LinearRegression(),
                 'DecisionTree': DecisionTreeRegressor(),
-                'AdaboostRegressor': AdaBoostRegressor(),
+                
                 'Lasso': Lasso(),
                 'ElasticNet': ElasticNet(),
                 'SVR': SVR(),
                 'Ridge': Ridge(),
+                'RandomForest':RandomForestRegressor()
 
             }
 
@@ -68,8 +70,10 @@ class ModelTrainer:
 
             predicted=best_model.predict(X_test)
 
-            r2_square=r2_score(y_test,predicted)
-            return r2_square
+            #r2_square=r2_score(y_test,predicted)
+            #return r2_square
+
+            return(predicted,y_test)
 
         except Exception as e:
             raise CustomException(e,sys)

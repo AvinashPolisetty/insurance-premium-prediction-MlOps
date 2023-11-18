@@ -9,6 +9,8 @@ from sklearn.model_selection import GridSearchCV
 from src.exception import CustomException
 
 
+
+
 def save_object(file_path,obj):
     try:
         dir_path=os.path.dirname(file_path)
@@ -52,3 +54,6 @@ def evaluate_model(X_train, y_train, X_test, y_test, models):
 
     except Exception as e:
         raise CustomException(e, sys)
+    
+
+
